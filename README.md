@@ -5,7 +5,7 @@
   <h3>Kill Lag Spikes. Stabilize Your PvP.</h3>
 </div>
 
-**Ping Stabilizer** is an advanced network optimization mod designed to make your Minecraft PvP experience as smooth as liquid. It doesn't just "lower ping"—it actively **stabilizes** your connection to prevent those annoying stutters and lag spikes that ruin combos.
+  **Ping Stabilizer** is an advanced network optimization mod designed to make your Minecraft PvP experience as smooth as liquid. It doesn't just "lower ping", it actively **stabilizes** your connection to prevent those annoying stutters and lag spikes that ruin combos.
 
 > [!NOTE] 
 > **Honest Disclaimer:** If you have severe physical network issues (e.g., bad ISP, faulty router, or you live on Mars), achieving 0ms is impossible. However, **Ping Stabilizer** will squeeze every drop of performance out of your current connection, ensuring your hit registration and PvP quality are significantly better than vanilla.
