@@ -25,3 +25,5 @@ public class ClientInitializer implements ClientModInitializer {
         PingStabilizerMod.LOGGER.info("Press H to edit HUD position, N to toggle HUD");
     }
 }
+
+

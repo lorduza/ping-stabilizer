@@ -19,11 +19,11 @@ public class DebugLogger {
         
         try {
             String desktop = System.getProperty("user.home") + "\\Desktop";
-            Path logPath = Paths.get(desktop, "netbooster_debug.txt");
+            Path logPath = Paths.get(desktop, "pingstabilizer_debug.txt");
             writer = new BufferedWriter(new FileWriter(logPath.toFile(), false));
             enabled = true;
             
-            log("=== NetBooster Debug Log Started ===");
+            log("=== Ping Stabilizer Debug Log Started ===");
             log("Time: " + LocalDateTime.now());
             log("=====================================");
         } catch (IOException e) {
@@ -62,3 +62,5 @@ public class DebugLogger {
         return enabled;
     }
 }
+
+

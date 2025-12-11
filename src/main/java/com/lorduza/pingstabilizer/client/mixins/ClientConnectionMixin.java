@@ -16,7 +16,9 @@ public class ClientConnectionMixin {
 
     @Inject(method = "channelActive", at = @At("TAIL"))
     private void onChannelActive(io.netty.channel.ChannelHandlerContext ctx, CallbackInfo ci) {
-        // Always apply TCP optimizations
+
         TcpPriorityHandler.apply(ctx.channel());
     }
 }
+
+

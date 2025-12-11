@@ -3,9 +3,7 @@ package com.lorduza.pingstabilizer.lib;
 import java.util.LinkedList;
 import java.util.Queue;
 
-/**
- * Tracks ping, jitter, and packet loss statistics.
- */
+
 public class PingTracker {
     private static final int HISTORY_SIZE = 20;
     private static final Queue<Long> pingHistory = new LinkedList<>();
@@ -13,32 +11,34 @@ public class PingTracker {
     private static volatile long avgPing = 0;
     private static volatile long jitter = 0;
     private static volatile int packetLoss = 0;
-    
-    // For packet loss calculation
+
     private static volatile long expectedResponses = 0;
     private static volatile long receivedResponses = 0;
     private static volatile long lastResetTime = System.currentTimeMillis();
     
-    /**
-     * Record a ping sample
-     */
+    
+    private static long lastRecordTime = 0;
+
     public static void recordPing(long pingMs) {
-        lastPing = pingMs;
+        long now = System.currentTimeMillis();
+
+        if (pingMs != lastPing || now - lastRecordTime > 1000) {
+            lastPing = pingMs;
+            lastRecordTime = now;
+
         
         synchronized (pingHistory) {
             pingHistory.add(pingMs);
             if (pingHistory.size() > HISTORY_SIZE) {
                 pingHistory.poll();
             }
-            
-            // Calculate average
+
             long sum = 0;
             for (Long p : pingHistory) {
                 sum += p;
             }
             avgPing = pingHistory.isEmpty() ? 0 : sum / pingHistory.size();
-            
-            // Calculate jitter (variance from average)
+
             if (pingHistory.size() >= 2) {
                 long variance = 0;
                 for (Long p : pingHistory) {
@@ -47,24 +47,20 @@ public class PingTracker {
                 jitter = variance / pingHistory.size();
             }
         }
+        }
     }
     
-    /**
-     * Mark that we expect a response (sent a request)
-     */
+    
     public static void expectResponse() {
         expectedResponses++;
-        
-        // Reset counters every 30 seconds
+
         long now = System.currentTimeMillis();
         if (now - lastResetTime > 30000) {
             resetPacketLoss();
         }
     }
     
-    /**
-     * Mark that we received a response
-     */
+    
     public static void responseReceived() {
         receivedResponses++;
         updatePacketLoss();
@@ -100,3 +96,5 @@ public class PingTracker {
         return packetLoss;
     }
 }
+
+

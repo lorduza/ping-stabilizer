@@ -2,26 +2,22 @@ package com.lorduza.pingstabilizer.client.config;
 
 import com.google.gson.annotations.Expose;
 
-public class NetBoostConfig {
-    // Network Optimization
+public class PingStabilizerConfig {
+
     @Expose public boolean tcpNoDelay = true;
     @Expose public boolean priorityFlush = true;
-    
-    // Advanced Settings
+
     @Expose public boolean customBufferSize = false;
     @Expose public int sendBufferKB = 128; // Default 128KB
     @Expose public int receiveBufferKB = 128;
-    
-    // Experimental
+
     @Expose public boolean smartQueue = false;
     @Expose public boolean adaptiveThrottle = false;
     @Expose public int maxHoldMs = 100;
     @Expose public boolean disableCompression = false;
-    
-    // Debug
+
     @Expose public boolean enableDebugLog = false;
-    
-    // HUD Settings
+
     @Expose public boolean hudEnabled = true;
     @Expose public boolean showPing = true;
     @Expose public boolean showJitter = true;
@@ -30,8 +26,7 @@ public class NetBoostConfig {
     @Expose public boolean showNetworkQuality = true;
     
     @Expose public int keepAliveMs = 5000;
-    
-    // HUD Positioning
+
     @Expose public int pingX = 10;
     @Expose public int pingY = 10;
     
@@ -47,3 +42,5 @@ public class NetBoostConfig {
     @Expose public int ppsX = 10;
     @Expose public int ppsY = 58;
 }
+
+

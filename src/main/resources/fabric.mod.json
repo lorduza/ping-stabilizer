@@ -3,16 +3,16 @@
     "id": "pingstabilizer",
     "version": "${version}",
     "name": "Ping Stabilizer",
-    "description": "Active lag spike killer and network stabilizer by Lorduza",
+    "description": "Active network stabilizer for smoother PvP and hit registration by Lorduza",
     "authors": [
-        "LordUza"
+        "Lorduza"
     ],
     "contact": {
-        "homepage": "https://github.com/lorduza/pingstabilizer",
-        "sources": "https://github.com/lorduza/pingstabilizer"
+        "homepage": "https://github.com/lorduza/ping-stabilizer",
+        "sources": "https://github.com/lorduza/ping-stabilizer"
     },
     "license": "MIT",
-    "icon": "assets/pingstabilizer/icon.png",
+    "icon": "assets/pingstabilizer/icon.jpg",
     "environment": "client",
     "entrypoints": {
         "main": [

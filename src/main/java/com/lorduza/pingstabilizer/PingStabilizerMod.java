@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class PingStabilizerMod implements ModInitializer {
-    public static final String MOD_ID = "netbooster";
+    public static final String MOD_ID = "pingstabilizer";
     public static final Logger LOGGER = LoggerFactory.getLogger("Ping Stabilizer");
 
     @Override
@@ -13,3 +13,5 @@ public class PingStabilizerMod implements ModInitializer {
         LOGGER.info("Ping Stabilizer initialized (Common)");
     }
 }
+
+

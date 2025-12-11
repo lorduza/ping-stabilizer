@@ -14,10 +14,11 @@ public class KeepAliveMixin {
     
     @Inject(method = "onKeepAlive", at = @At("HEAD"))
     private void onKeepAliveReceived(KeepAliveS2CPacket packet, CallbackInfo ci) {
-        // Track in LatencySensor for RTT/Jitter (no parameters)
+
         LatencySensor.onKeepAliveReceived();
-        
-        // Track in PingTracker for packet loss (no parameters)
+
         PingTracker.responseReceived();
     }
 }
+
+

@@ -1,7 +1,7 @@
 package com.lorduza.pingstabilizer.client.ui;
 
 import com.lorduza.pingstabilizer.client.config.ConfigManager;
-import com.lorduza.pingstabilizer.client.config.NetBoostConfig;
+import com.lorduza.pingstabilizer.client.config.PingStabilizerConfig;
 import com.lorduza.pingstabilizer.lib.DebugLogger;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
@@ -16,86 +16,83 @@ public class ModMenuIntegration implements ModMenuApi {
         return parent -> {
             ConfigBuilder builder = ConfigBuilder.create()
                     .setParentScreen(parent)
-                    .setTitle(Text.translatable("config.netbooster.title"));
+                    .setTitle(Text.translatable("config.pingstabilizer.title"));
 
             builder.setSavingRunnable(ConfigManager::save);
 
             ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-            NetBoostConfig config = ConfigManager.get();
+            PingStabilizerConfig config = ConfigManager.get();
 
-            // Network Optimization
-            ConfigCategory network = builder.getOrCreateCategory(Text.translatable("config.netbooster.category.network"));
+            ConfigCategory network = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.network"));
 
-            network.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.tcpNoDelay"), config.tcpNoDelay)
+            network.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.tcpNoDelay"), config.tcpNoDelay)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.tcpNoDelay"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.tcpNoDelay"))
                     .setSaveConsumer(newValue -> config.tcpNoDelay = newValue)
                     .build());
 
-            network.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.priorityFlush"), config.priorityFlush)
+            network.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.priorityFlush"), config.priorityFlush)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.priorityFlush"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.priorityFlush"))
                     .setSaveConsumer(newValue -> config.priorityFlush = newValue)
                     .build());
 
-            // Advanced Settings
-            ConfigCategory advanced = builder.getOrCreateCategory(Text.translatable("config.netbooster.category.advanced"));
+            ConfigCategory advanced = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.advanced"));
 
-            advanced.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.customBufferSize"), config.customBufferSize)
+            advanced.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.customBufferSize"), config.customBufferSize)
                     .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.customBufferSize"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.customBufferSize"))
                     .setSaveConsumer(newValue -> config.customBufferSize = newValue)
                     .build());
 
-            advanced.addEntry(entryBuilder.startIntField(Text.translatable("config.netbooster.option.sendBufferKB"), config.sendBufferKB)
+            advanced.addEntry(entryBuilder.startIntField(Text.translatable("config.pingstabilizer.option.sendBufferKB"), config.sendBufferKB)
                     .setDefaultValue(128)
                     .setMin(16).setMax(1024)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.sendBufferKB"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.sendBufferKB"))
                     .setSaveConsumer(newValue -> config.sendBufferKB = newValue)
                     .build());
 
-            advanced.addEntry(entryBuilder.startIntField(Text.translatable("config.netbooster.option.receiveBufferKB"), config.receiveBufferKB)
+            advanced.addEntry(entryBuilder.startIntField(Text.translatable("config.pingstabilizer.option.receiveBufferKB"), config.receiveBufferKB)
                     .setDefaultValue(128)
                     .setMin(16).setMax(1024)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.receiveBufferKB"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.receiveBufferKB"))
                     .setSaveConsumer(newValue -> config.receiveBufferKB = newValue)
                     .build());
                     
-            advanced.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.disableCompression"), config.disableCompression)
+            advanced.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.disableCompression"), config.disableCompression)
                     .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.disableCompression"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.disableCompression"))
                     .setSaveConsumer(newValue -> config.disableCompression = newValue)
                     .build());
 
-            // Experimental
-            ConfigCategory experimental = builder.getOrCreateCategory(Text.translatable("config.netbooster.category.experimental"));
+            ConfigCategory experimental = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.experimental"));
 
             experimental.setDescription(new Text[]{
-                Text.translatable("config.netbooster.experimental.warning")
+                Text.translatable("config.pingstabilizer.experimental.warning")
             });
 
-            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.smartQueue"), config.smartQueue)
+            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.smartQueue"), config.smartQueue)
                     .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.smartQueue"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.smartQueue"))
                     .setSaveConsumer(newValue -> config.smartQueue = newValue)
                     .build());
 
-            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.adaptiveThrottle"), config.adaptiveThrottle)
+            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.adaptiveThrottle"), config.adaptiveThrottle)
                     .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.adaptiveThrottle"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.adaptiveThrottle"))
                     .setSaveConsumer(newValue -> config.adaptiveThrottle = newValue)
                     .build());
 
-            experimental.addEntry(entryBuilder.startIntField(Text.translatable("config.netbooster.option.maxHoldMs"), config.maxHoldMs)
+            experimental.addEntry(entryBuilder.startIntField(Text.translatable("config.pingstabilizer.option.maxHoldMs"), config.maxHoldMs)
                     .setDefaultValue(100)
                     .setMin(50).setMax(500)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.maxHoldMs"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.maxHoldMs"))
                     .setSaveConsumer(newValue -> config.maxHoldMs = newValue)
                     .build());
 
-            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.enableDebugLog"), config.enableDebugLog)
+            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.enableDebugLog"), config.enableDebugLog)
                     .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.enableDebugLog"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.enableDebugLog"))
                     .setSaveConsumer(newValue -> {
                         config.enableDebugLog = newValue;
                         if (newValue) {
@@ -106,51 +103,51 @@ public class ModMenuIntegration implements ModMenuApi {
                     })
                     .build());
 
-            // HUD Settings
-            ConfigCategory hud = builder.getOrCreateCategory(Text.translatable("config.netbooster.category.hud"));
+            ConfigCategory hud = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.hud"));
 
-            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.enableHud"), config.hudEnabled)
+            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.enableHud"), config.hudEnabled)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.enableHud"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.enableHud"))
                     .setSaveConsumer(newValue -> config.hudEnabled = newValue)
                     .build());
 
-            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.showPing"), config.showPing)
+            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.showPing"), config.showPing)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.showPing"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.showPing"))
                     .setSaveConsumer(newValue -> config.showPing = newValue)
                     .build());
 
-            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.showJitter"), config.showJitter)
+            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.showJitter"), config.showJitter)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.showJitter"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.showJitter"))
                     .setSaveConsumer(newValue -> config.showJitter = newValue)
                     .build());
 
-            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.showPacketLoss"), config.showPacketLoss)
+            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.showPacketLoss"), config.showPacketLoss)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.showPacketLoss"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.showPacketLoss"))
                     .setSaveConsumer(newValue -> config.showPacketLoss = newValue)
                     .build());
 
-            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.showPacketStats"), config.showPacketStats)
+            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.showPacketStats"), config.showPacketStats)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.showPacketStats"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.showPacketStats"))
                     .setSaveConsumer(newValue -> config.showPacketStats = newValue)
                     .build());
             
-            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.netbooster.option.showNetworkQuality"), config.showNetworkQuality)
+            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.showNetworkQuality"), config.showNetworkQuality)
                     .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.showNetworkQuality"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.showNetworkQuality"))
                     .setSaveConsumer(newValue -> config.showNetworkQuality = newValue)
                     .build());
 
-            // Open Position Screen Button
-            hud.addEntry(entryBuilder.startTextDescription(Text.translatable("config.netbooster.option.openHudPositioner"))
-                    .setTooltip(Text.translatable("config.netbooster.tooltip.openHudPositioner"))
+            hud.addEntry(entryBuilder.startTextDescription(Text.translatable("config.pingstabilizer.option.openHudPositioner"))
+                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.openHudPositioner"))
                     .build());
 
             return builder.build();
         };
     }
 }
+
+

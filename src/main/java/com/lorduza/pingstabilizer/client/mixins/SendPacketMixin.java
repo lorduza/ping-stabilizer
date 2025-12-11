@@ -1,7 +1,7 @@
 package com.lorduza.pingstabilizer.client.mixins;
 
 import com.lorduza.pingstabilizer.client.config.ConfigManager;
-import com.lorduza.pingstabilizer.client.config.NetBoostConfig;
+import com.lorduza.pingstabilizer.client.config.PingStabilizerConfig;
 import com.lorduza.pingstabilizer.lib.NetworkStats;
 import com.lorduza.pingstabilizer.lib.PacketClassifier;
 import com.lorduza.pingstabilizer.lib.TcpPriorityHandler;
@@ -24,14 +24,14 @@ public class SendPacketMixin {
     private void onSendImmediately(Packet<?> packet, @Nullable ChannelFutureListener listener, boolean flush, CallbackInfo ci) {
         if (channel == null || !channel.isActive()) return;
         
-        NetBoostConfig config = ConfigManager.get();
+        PingStabilizerConfig config = ConfigManager.get();
         
         NetworkStats.markSent();
         
         if (config.priorityFlush) {
             PacketClassifier.Category category = PacketClassifier.classify(packet);
             if (category == PacketClassifier.Category.CRITICAL) {
-                // Only force flush if it wasn't already flushed
+
                 if (!flush) {
                     TcpPriorityHandler.forceFlush(channel);
                 }
@@ -39,3 +39,5 @@ public class SendPacketMixin {
         }
     }
 }
+
+

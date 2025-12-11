@@ -13,12 +13,12 @@ import java.io.IOException;
 public class ConfigManager {
     private static final File CONFIG_FILE = FabricLoader.getInstance().getConfigDir().resolve("netboost.json").toFile();
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-    private static NetBoostConfig instance = new NetBoostConfig();
+    private static PingStabilizerConfig instance = new PingStabilizerConfig();
 
     public static void load() {
         if (CONFIG_FILE.exists()) {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
-                instance = GSON.fromJson(reader, NetBoostConfig.class);
+                instance = GSON.fromJson(reader, PingStabilizerConfig.class);
                 if (instance != null) {
                     instance.hudEnabled = true; // FORCE ENABLE for testing
                     instance.showPing = true;
@@ -43,7 +43,9 @@ public class ConfigManager {
         }
     }
 
-    public static NetBoostConfig get() {
+    public static PingStabilizerConfig get() {
         return instance;
     }
 }
+
+
