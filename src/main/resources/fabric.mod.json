@@ -1,0 +1,39 @@
+{
+    "schemaVersion": 1,
+    "id": "pingstabilizer",
+    "version": "${version}",
+    "name": "Ping Stabilizer",
+    "description": "Active lag spike killer and network stabilizer by Lorduza",
+    "authors": [
+        "LordUza"
+    ],
+    "contact": {
+        "homepage": "https://github.com/lorduza/pingstabilizer",
+        "sources": "https://github.com/lorduza/pingstabilizer"
+    },
+    "license": "MIT",
+    "icon": "assets/pingstabilizer/icon.png",
+    "environment": "client",
+    "entrypoints": {
+        "main": [
+            "com.lorduza.pingstabilizer.PingStabilizerMod"
+        ],
+        "client": [
+            "com.lorduza.pingstabilizer.client.ClientInitializer"
+        ],
+        "modmenu": [
+            "com.lorduza.pingstabilizer.client.ui.ModMenuIntegration"
+        ]
+    },
+    "mixins": [
+        "mixins.pingstabilizer.json"
+    ],
+    "depends": {
+        "fabricloader": ">=${loader_version}",
+        "fabric": "*",
+        "minecraft": "~${minecraft_version}",
+        "java": ">=21",
+        "cloth-config": "*",
+        "modmenu": "*"
+    }
+}

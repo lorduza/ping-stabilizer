@@ -1,0 +1,15 @@
+{
+    "required": true,
+    "package": "com.lorduza.pingstabilizer.client.mixins",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "AttackMixin",
+        "ClientConnectionMixin",
+        "SendPacketMixin",
+        "KeepAliveMixin"
+    ],
+    "client": [],
+    "injectors": {
+        "defaultRequire": 1
+    }
+}
