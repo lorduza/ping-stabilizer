@@ -19,13 +19,8 @@ public class ConfigManager {
         if (CONFIG_FILE.exists()) {
             try (FileReader reader = new FileReader(CONFIG_FILE)) {
                 instance = GSON.fromJson(reader, PingStabilizerConfig.class);
-                if (instance != null) {
-                    instance.hudEnabled = true; // FORCE ENABLE for testing
-                    instance.showPing = true;
-                    instance.showJitter = true;
-                    instance.showPacketLoss = true;
-                    instance.showPacketStats = true;
-                    instance.showNetworkQuality = true;
+                if (instance == null) {
+                    instance = new PingStabilizerConfig();
                 }
             } catch (Exception e) {
                 PingStabilizerMod.LOGGER.error("Failed to load config", e);
