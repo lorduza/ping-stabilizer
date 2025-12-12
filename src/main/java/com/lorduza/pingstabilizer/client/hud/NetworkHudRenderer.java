@@ -15,6 +15,8 @@ public class NetworkHudRenderer implements HudRenderCallback {
     @Override
     public void onHudRender(DrawContext drawContext, RenderTickCounter tickCounter) {
         PingStabilizerConfig config = ConfigManager.get();
+        net.minecraft.client.font.TextRenderer tr = net.minecraft.client.MinecraftClient.getInstance().textRenderer;
+        net.minecraft.text.Text text;
 
 
         if (!config.hudEnabled) return;
@@ -33,46 +35,40 @@ public class NetworkHudRenderer implements HudRenderCallback {
         long displayJitter = LatencySensor.getJitter();
 
 
-        if (config.showPing) {
-            String pingText;
-            if (displayPing <= 0) {
-                pingText = "Ping: Calc...";
-            } else {
-                pingText = "Ping: " + displayPing + "ms";
-            }
-            drawContext.drawTextWithShadow(client.textRenderer, pingText, config.pingX, config.pingY, getPingColor(displayPing));
-        }
+
 
         if (config.showJitter) {
-            String jitterText = "Jitter: " + displayJitter + "ms";
+            String val = displayJitter + "ms";
             if (JitterStabilizer.isStabilizing()) {
-                jitterText += " (STABILIZING...)";
+                val += " " + net.minecraft.text.Text.translatable("hud.pingstabilizer.status.stabilizing").getString();
             }
-            drawContext.drawTextWithShadow(client.textRenderer, jitterText, config.jitterX, config.jitterY, 
+            text = net.minecraft.text.Text.translatable("hud.pingstabilizer.label.jitter", val);
+            drawContext.drawTextWithShadow(tr, text, config.jitterX, config.jitterY, 
                 JitterStabilizer.isStabilizing() ? 0xFFFF5555 : getJitterColor(displayJitter));
         }
 
         if (config.showPacketLoss) {
-            drawContext.drawTextWithShadow(client.textRenderer, "Loss: " + PingTracker.getPacketLoss() + "%", config.lossX, config.lossY, 0xFF55FF55);
+            text = net.minecraft.text.Text.translatable("hud.pingstabilizer.label.loss", PingTracker.getPacketLoss() + "%");
+            drawContext.drawTextWithShadow(tr, text, config.lossX, config.lossY, 0xFF55FF55);
         }
 
         if (config.showNetworkQuality) {
-            String quality = "Excellent";
+            String qualityKey = "hud.pingstabilizer.quality.excellent";
             int color = 0xFF55FF55;
-            if (displayPing > 150) { quality = "Poor"; color = 0xFFFF5555; }
-            else if (displayPing > 100) { quality = "Fair"; color = 0xFFFFAA00; }
-            else if (displayPing > 50) { quality = "Good"; color = 0xFFFFFF55; }
-            drawContext.drawTextWithShadow(client.textRenderer, "Quality: " + quality, config.qualityX, config.qualityY, color);
+            if (displayPing > 150) { qualityKey = "hud.pingstabilizer.quality.poor"; color = 0xFFFF5555; }
+            else if (displayPing > 100) { qualityKey = "hud.pingstabilizer.quality.fair"; color = 0xFFFFAA00; }
+            else if (displayPing > 50) { qualityKey = "hud.pingstabilizer.quality.good"; color = 0xFFFFFF55; }
+            text = net.minecraft.text.Text.translatable("hud.pingstabilizer.label.quality", net.minecraft.text.Text.translatable(qualityKey));
+            drawContext.drawTextWithShadow(tr, text, config.qualityX, config.qualityY, color);
         }
 
         if (config.showPacketStats) {
             int pps = NetworkStats.getPPS();
-            drawContext.drawTextWithShadow(client.textRenderer, "PPS: " + pps, config.ppsX, config.ppsY, 0xFFCCCCCC);
+            text = net.minecraft.text.Text.translatable("hud.pingstabilizer.label.pps", pps);
+            drawContext.drawTextWithShadow(tr, text, config.ppsX, config.ppsY, 0xFFCCCCCC);
         }
 
-        if (displayPing > 200) {
-            drawContext.drawTextWithShadow(client.textRenderer, "⚠ LAG", config.pingX + 60, config.pingY, 0xFFFF5555);
-        }
+
     }
     
     private long getPing(MinecraftClient client) {
@@ -80,24 +76,15 @@ public class NetworkHudRenderer implements HudRenderCallback {
         if (handler == null || client.player == null) return -1;
 
         PlayerListEntry entry = handler.getPlayerListEntry(client.player.getUuid());
-        if (entry != null) return entry.getLatency();
-
-        for (PlayerListEntry p : handler.getPlayerList()) {
-            if (p.getProfile().getName().equals(client.player.getName().getString())) {
-                return p.getLatency();
-            }
+        if (entry != null) {
+            int latency = entry.getLatency();
+            if (latency > 0) return latency;
         }
 
         return -1;
     }
     
-    private int getPingColor(long ping) {
-        if (ping <= 0) return 0xFFFFFFFF; // White with alpha
-        if (ping < 50) return 0xFF55FF55; // Green
-        if (ping < 100) return 0xFFFFFF55; // Yellow
-        if (ping < 150) return 0xFFFFAA00; // Gold
-        return 0xFFFF5555; // Red
-    }
+
     
     private int getJitterColor(long jitter) {
         if (jitter < 15) return 0xFF55FF55; // Green
