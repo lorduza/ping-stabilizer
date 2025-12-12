@@ -28,8 +28,7 @@ public class NetworkHudRenderer implements HudRenderCallback {
         
         if (client.player == null) return;
 
-        long realPing = getRealPing(client);
-        long displayPing = realPing;        // Use realPing directly for display
+        long displayPing = getPing(client);
 
         long displayJitter = LatencySensor.getJitter();
 
@@ -71,11 +70,19 @@ public class NetworkHudRenderer implements HudRenderCallback {
         }
     }
     
-    private long getRealPing(MinecraftClient client) {
+    private long getPing(MinecraftClient client) {
         ClientPlayNetworkHandler handler = client.getNetworkHandler();
         if (handler == null || client.player == null) return 0;
+
         PlayerListEntry entry = handler.getPlayerListEntry(client.player.getUuid());
-        return entry != null ? entry.getLatency() : 0;
+        if (entry != null) return entry.getLatency();
+
+        for (PlayerListEntry e : handler.getPlayerList()) {
+            if (e.getProfile().getName().equals(client.player.getName().getString())) {
+                return e.getLatency();
+            }
+        }
+        return 0;
     }
     
     private int getPingColor(long ping) {
