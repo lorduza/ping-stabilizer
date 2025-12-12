@@ -16,7 +16,7 @@ public class PingStabilizerConfig {
     @Expose public int maxHoldMs = 100;
     @Expose public boolean disableCompression = false;
 
-    @Expose public boolean enableDebugLog = false;
+
 
     @Expose public boolean hudEnabled = true;
     @Expose public boolean showPing = true;

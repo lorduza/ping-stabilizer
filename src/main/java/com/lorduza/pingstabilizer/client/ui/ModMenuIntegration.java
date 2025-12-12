@@ -2,7 +2,7 @@ package com.lorduza.pingstabilizer.client.ui;
 
 import com.lorduza.pingstabilizer.client.config.ConfigManager;
 import com.lorduza.pingstabilizer.client.config.PingStabilizerConfig;
-import com.lorduza.pingstabilizer.lib.DebugLogger;
+
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
