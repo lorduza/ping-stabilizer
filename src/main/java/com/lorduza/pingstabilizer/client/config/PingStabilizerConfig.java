@@ -19,7 +19,7 @@ public class PingStabilizerConfig {
 
 
     @Expose public boolean hudEnabled = true;
-    @Expose public boolean showPing = true;
+
     @Expose public boolean showJitter = true;
     @Expose public boolean showPacketLoss = true;
     @Expose public boolean showPacketStats = true;
@@ -27,8 +27,7 @@ public class PingStabilizerConfig {
     
     @Expose public int keepAliveMs = 5000;
 
-    @Expose public int pingX = 10;
-    @Expose public int pingY = 10;
+
     
     @Expose public int jitterX = 10;
     @Expose public int jitterY = 22;
