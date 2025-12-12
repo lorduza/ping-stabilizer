@@ -19,6 +19,7 @@ public class ClientInitializer implements ClientModInitializer {
         
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             KeybindManager.tick(client);
+            com.lorduza.pingstabilizer.lib.SmartQueueManager.tick();
         });
         
         PingStabilizerMod.LOGGER.info("Ping Stabilizer Client initialized!");
