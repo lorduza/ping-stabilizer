@@ -11,10 +11,12 @@
 > **Honest Disclaimer:** If you have severe physical network issues (e.g., bad ISP, faulty router, or you live on Mars), achieving 0ms is impossible. However, **Ping Stabilizer** will squeeze every drop of performance out of your current connection, ensuring your hit registration and PvP quality are significantly better than vanilla.
 
 ## Features
-- **Jitter Stabilizer:** Automatically detects active lag spikes and prioritizes combat packets to stabilize connection.
-- **Strict Low Delay:** Forces the OS to send Minecraft packets immediately (TCP Priority).
-- **Anti-Bufferbloat:** Manages upload speed to prevent connection choking during heavy data transfer.
-- **Network HUD:** Displays Ping, Jitter, and Stability Status on your screen.
-- **Active Traffic Management:** Intelligently queues background packets to keep the line clear for PvP.
-- **Mod Menu Integration:** Fully configurable settings.
-- **Draggable HUD:** Press H to move stats, N to toggle visibility.
+- **TCP No Delay:** Disables Nagle's algorithm for instant packet transmission.
+- **Priority Flush:** Combat packets (attack, block, movement) are sent immediately.
+- **Smart Queue:** Intelligent packet scheduler that prioritizes combat and movement packets.
+- **Adaptive Throttle:** Groups low-priority packets during lag spikes to stabilize connection.
+- **Jitter Stabilizer:** Automatically detects lag spikes and forces packet flush.
+- **Network HUD:** Real-time display of Jitter, Packet Loss, Network Quality, and PPS.
+- **Draggable HUD:** Press H to customize positions, N to toggle visibility.
+- **Mod Menu Integration:** Fully configurable settings with Cloth Config.
+- **Multi-language Support:** English, Turkish, German, Spanish, French, Russian, Chinese.
