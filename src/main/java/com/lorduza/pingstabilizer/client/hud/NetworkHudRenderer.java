@@ -35,8 +35,8 @@ public class NetworkHudRenderer implements HudRenderCallback {
 
         if (config.showPing) {
             String pingText;
-            if (displayPing < 0) {
-                pingText = "Ping: ...";
+            if (displayPing <= 0) {
+                pingText = "Ping: Calc...";
             } else {
                 pingText = "Ping: " + displayPing + "ms";
             }
@@ -81,6 +81,12 @@ public class NetworkHudRenderer implements HudRenderCallback {
 
         PlayerListEntry entry = handler.getPlayerListEntry(client.player.getUuid());
         if (entry != null) return entry.getLatency();
+
+        for (PlayerListEntry p : handler.getPlayerList()) {
+            if (p.getProfile().getName().equals(client.player.getName().getString())) {
+                return p.getLatency();
+            }
+        }
 
         return -1;
     }
