@@ -49,7 +49,7 @@ public class NetworkHudRenderer implements HudRenderCallback {
         }
 
         if (config.showPacketLoss) {
-            drawContext.drawTextWithShadow(client.textRenderer, "Loss: 0%", config.lossX, config.lossY, 0xFF55FF55);
+            drawContext.drawTextWithShadow(client.textRenderer, "Loss: " + PingTracker.getPacketLoss() + "%", config.lossX, config.lossY, 0xFF55FF55);
         }
 
         if (config.showNetworkQuality) {
