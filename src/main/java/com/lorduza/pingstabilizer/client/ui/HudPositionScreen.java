@@ -11,7 +11,6 @@ import org.lwjgl.glfw.GLFW;
 
 public class HudPositionScreen extends Screen {
 
-    private static final String[] ELEMENT_NAMEX = {"Jitter", "Loss", "Quality", "PPS"}; // Kept for reference, but we will use keys
     private int[] elementX = new int[4];
     private int[] elementY = new int[4];
 

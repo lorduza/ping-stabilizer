@@ -14,7 +14,6 @@ public class PingStabilizerConfig {
     @Expose public boolean smartQueue = false;
     @Expose public boolean adaptiveThrottle = false;
     @Expose public int maxHoldMs = 100;
-    @Expose public boolean disableCompression = false;
 
 
 
@@ -24,8 +23,6 @@ public class PingStabilizerConfig {
     @Expose public boolean showPacketLoss = true;
     @Expose public boolean showPacketStats = true;
     @Expose public boolean showNetworkQuality = true;
-    
-    @Expose public int keepAliveMs = 5000;
 
 
     
