@@ -34,7 +34,12 @@ public class NetworkHudRenderer implements HudRenderCallback {
 
 
         if (config.showPing) {
-            String pingText = "Ping: " + (displayPing > 0 ? displayPing + "ms" : "~");
+            String pingText;
+            if (displayPing < 0) {
+                pingText = "Ping: ...";
+            } else {
+                pingText = "Ping: " + displayPing + "ms";
+            }
             drawContext.drawTextWithShadow(client.textRenderer, pingText, config.pingX, config.pingY, getPingColor(displayPing));
         }
 
@@ -72,17 +77,12 @@ public class NetworkHudRenderer implements HudRenderCallback {
     
     private long getPing(MinecraftClient client) {
         ClientPlayNetworkHandler handler = client.getNetworkHandler();
-        if (handler == null || client.player == null) return 0;
+        if (handler == null || client.player == null) return -1;
 
         PlayerListEntry entry = handler.getPlayerListEntry(client.player.getUuid());
         if (entry != null) return entry.getLatency();
 
-        for (PlayerListEntry e : handler.getPlayerList()) {
-            if (e.getProfile().getName().equals(client.player.getName().getString())) {
-                return e.getLatency();
-            }
-        }
-        return 0;
+        return -1;
     }
     
     private int getPingColor(long ping) {
