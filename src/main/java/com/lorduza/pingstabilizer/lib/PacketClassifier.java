@@ -70,7 +70,7 @@ public class PacketClassifier {
         }
 
         if (packet instanceof CommandExecutionC2SPacket) {
-            return Category.BULK;
+            return Category.NORMAL;
         }
 
         if (packet instanceof ResourcePackStatusC2SPacket) {
@@ -78,7 +78,7 @@ public class PacketClassifier {
         }
 
         if (packet instanceof CustomPayloadC2SPacket) {
-            return Category.BULK;
+            return Category.NORMAL;
         }
 
         return Category.NORMAL;

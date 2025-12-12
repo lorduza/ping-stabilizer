@@ -73,7 +73,9 @@ public class SmartQueueManager {
         if (category == PacketClassifier.Category.BULK) {
 
             if (JitterStabilizer.isStabilizing()) {
-                return true; // Dropped
+                sendOnEventLoop(ch, packet, true); // Force flush if stabilizing
+                processedCount.incrementAndGet();
+                return true; 
             }
             
             if (config.adaptiveThrottle && LatencySensor.isNetworkCongested()) {
