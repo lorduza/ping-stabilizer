@@ -28,6 +28,10 @@ public class SendPacketMixin {
         
         NetworkStats.markSent();
         
+        if (packet instanceof net.minecraft.network.packet.c2s.common.KeepAliveC2SPacket) {
+            com.lorduza.pingstabilizer.lib.LatencySensor.onKeepAliveSent();
+        }
+
         if (config.priorityFlush) {
             PacketClassifier.Category category = PacketClassifier.classify(packet);
             if (category == PacketClassifier.Category.CRITICAL) {

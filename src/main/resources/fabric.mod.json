@@ -12,7 +12,7 @@
         "sources": "https://github.com/lorduza/ping-stabilizer"
     },
     "license": "MIT",
-    "icon": "assets/pingstabilizer/icon.jpg",
+    "icon": "assets/pingstabilizer/icon.png",
     "environment": "client",
     "entrypoints": {
         "main": [
