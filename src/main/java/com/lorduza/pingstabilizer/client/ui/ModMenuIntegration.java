@@ -65,29 +65,30 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.disableCompression = newValue)
                     .build());
 
-            ConfigCategory experimental = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.experimental"));
+            ConfigCategory smartQueue = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.smartQueue"));
 
-            experimental.setDescription(new Text[]{
-                Text.translatable("config.pingstabilizer.experimental.warning")
-            });
-
-            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.smartQueue"), config.smartQueue)
+            smartQueue.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.smartQueue"), config.smartQueue)
                     .setDefaultValue(false)
                     .setTooltip(Text.translatable("config.pingstabilizer.tooltip.smartQueue"))
                     .setSaveConsumer(newValue -> config.smartQueue = newValue)
                     .build());
 
-            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.adaptiveThrottle"), config.adaptiveThrottle)
+            smartQueue.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.adaptiveThrottle"), config.adaptiveThrottle)
                     .setDefaultValue(false)
                     .setTooltip(Text.translatable("config.pingstabilizer.tooltip.adaptiveThrottle"))
                     .setSaveConsumer(newValue -> config.adaptiveThrottle = newValue)
                     .build());
 
-            experimental.addEntry(entryBuilder.startIntField(Text.translatable("config.pingstabilizer.option.maxHoldMs"), config.maxHoldMs)
+            smartQueue.addEntry(entryBuilder.startIntField(Text.translatable("config.pingstabilizer.option.maxHoldMs"), config.maxHoldMs)
                     .setDefaultValue(100)
                     .setMin(50).setMax(500)
                     .setTooltip(Text.translatable("config.pingstabilizer.tooltip.maxHoldMs"))
                     .setSaveConsumer(newValue -> config.maxHoldMs = newValue)
+                    .build());
+
+            ConfigCategory experimental = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.experimental"));
+
+            experimental.addEntry(entryBuilder.startTextDescription(Text.translatable("config.pingstabilizer.experimental.warning"))
                     .build());
 
             experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.enableDebugLog"), config.enableDebugLog)
