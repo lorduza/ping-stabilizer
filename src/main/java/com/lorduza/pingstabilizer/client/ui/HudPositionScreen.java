@@ -11,9 +11,9 @@ import org.lwjgl.glfw.GLFW;
 
 public class HudPositionScreen extends Screen {
 
-    private static final String[] ELEMENT_NAMES = {"Ping", "Jitter", "Loss", "Quality", "PPS"};
-    private int[] elementX = new int[5];
-    private int[] elementY = new int[5];
+    private static final String[] ELEMENT_NAMEX = {"Jitter", "Loss", "Quality", "PPS"}; // Kept for reference, but we will use keys
+    private int[] elementX = new int[4];
+    private int[] elementY = new int[4];
 
     private int selectedElement = -1; // -1 = none selected
     private boolean dragging = false;
@@ -24,48 +24,45 @@ public class HudPositionScreen extends Screen {
     private static final int ELEMENT_HEIGHT = 12;
     
     public HudPositionScreen() {
-        super(Text.of("Ping Stabilizer HUD Position"));
+        super(Text.translatable("hud.pingstabilizer.position_screen.title"));
         loadPositions();
     }
     
     private void loadPositions() {
         PingStabilizerConfig config = ConfigManager.get();
-        elementX[0] = config.pingX;    elementY[0] = config.pingY;
-        elementX[1] = config.jitterX;  elementY[1] = config.jitterY;
-        elementX[2] = config.lossX;    elementY[2] = config.lossY;
-        elementX[3] = config.qualityX; elementY[3] = config.qualityY;
-        elementX[4] = config.ppsX;     elementY[4] = config.ppsY;
+        elementX[0] = config.jitterX;  elementY[0] = config.jitterY;
+        elementX[1] = config.lossX;    elementY[1] = config.lossY;
+        elementX[2] = config.qualityX; elementY[2] = config.qualityY;
+        elementX[3] = config.ppsX;     elementY[3] = config.ppsY;
     }
     
     private void savePositions() {
         PingStabilizerConfig config = ConfigManager.get();
-        config.pingX = elementX[0];    config.pingY = elementY[0];
-        config.jitterX = elementX[1];  config.jitterY = elementY[1];
-        config.lossX = elementX[2];    config.lossY = elementY[2];
-        config.qualityX = elementX[3]; config.qualityY = elementY[3];
-        config.ppsX = elementX[4];     config.ppsY = elementY[4];
+        config.jitterX = elementX[0];  config.jitterY = elementY[0];
+        config.lossX = elementX[1];    config.lossY = elementY[1];
+        config.qualityX = elementX[2]; config.qualityY = elementY[2];
+        config.ppsX = elementX[3];     config.ppsY = elementY[3];
         ConfigManager.save();
     }
     
     @Override
     protected void init() {
 
-        this.addDrawableChild(ButtonWidget.builder(Text.of("Save & Close"), button -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("hud.pingstabilizer.position_screen.save_close"), button -> {
             saveAndClose();
         }).dimensions(this.width / 2 - 105, this.height - 40, 100, 20).build());
 
-        this.addDrawableChild(ButtonWidget.builder(Text.of("Reset"), button -> {
+        this.addDrawableChild(ButtonWidget.builder(Text.translatable("hud.pingstabilizer.position_screen.reset"), button -> {
             resetPositions();
         }).dimensions(this.width / 2 + 5, this.height - 40, 100, 20).build());
     }
     
     private void resetPositions() {
 
-        elementX[0] = 10; elementY[0] = 10;  // Ping
-        elementX[1] = 10; elementY[1] = 22;  // Jitter
-        elementX[2] = 10; elementY[2] = 34;  // Loss
-        elementX[3] = 10; elementY[3] = 46;  // Quality
-        elementX[4] = 10; elementY[4] = 58;  // PPS
+        elementX[0] = 10; elementY[0] = 22;  // Jitter
+        elementX[1] = 10; elementY[1] = 34;  // Loss
+        elementX[2] = 10; elementY[2] = 46;  // Quality
+        elementX[3] = 10; elementY[3] = 58;  // PPS
     }
     
     @Override
@@ -77,7 +74,7 @@ public class HudPositionScreen extends Screen {
         ) == GLFW.GLFW_PRESS;
 
         if (mouseDown && !dragging) {
-            for (int i = 0; i < 5; i++) {
+            for (int i = 0; i < 4; i++) {
                 if (isMouseOverElement(mouseX, mouseY, i)) {
                     selectedElement = i;
                     dragging = true;
@@ -106,13 +103,18 @@ public class HudPositionScreen extends Screen {
 
         context.fill(0, 0, this.width, this.height, 0x80000000);
 
-        context.drawCenteredTextWithShadow(textRenderer, "§b§lDrag HUD Elements", this.width / 2, 20, 0x55FFFF);
-        context.drawCenteredTextWithShadow(textRenderer, "§7Click and drag each element separately", this.width / 2, 35, 0xAAAAAA);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("hud.pingstabilizer.position_screen.drag_title"), this.width / 2, 20, 0x55FFFF);
+        context.drawCenteredTextWithShadow(textRenderer, Text.translatable("hud.pingstabilizer.position_screen.drag_subtitle"), this.width / 2, 35, 0xAAAAAA);
 
-        String[] labels = {"Ping: ~", "Jitter: 0ms", "Loss: 0%", "Quality: Good", "PPS: 123"};
-        int[] colors = {0xFFFFFFFF, 0xFF55FF55, 0xFF55FF55, 0xFFFFFF55, 0xFFCCCCCC};
+        Text[] labels = {
+            Text.translatable("hud.pingstabilizer.label.jitter", "0ms"),
+            Text.translatable("hud.pingstabilizer.label.loss", "0%"),
+            Text.translatable("hud.pingstabilizer.label.quality", Text.translatable("hud.pingstabilizer.quality.good")),
+            Text.translatable("hud.pingstabilizer.label.pps", "123")
+        };
+        int[] colors = {0xFF55FF55, 0xFF55FF55, 0xFFFFFF55, 0xFFCCCCCC};
         
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             int x = elementX[i];
             int y = elementY[i];
 
@@ -131,7 +133,7 @@ public class HudPositionScreen extends Screen {
         }
 
         if (selectedElement >= 0 && dragging) {
-            String info = "§a" + ELEMENT_NAMES[selectedElement] + " dragging...";
+            Text info = Text.translatable("hud.pingstabilizer.position_screen.dragging", labels[selectedElement].getString());
             context.drawCenteredTextWithShadow(textRenderer, info, this.width / 2, 55, 0x55FF55);
         }
         
