@@ -59,11 +59,7 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.receiveBufferKB = newValue)
                     .build());
                     
-            advanced.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.disableCompression"), config.disableCompression)
-                    .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.disableCompression"))
-                    .setSaveConsumer(newValue -> config.disableCompression = newValue)
-                    .build());
+
 
             ConfigCategory smartQueue = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.smartQueue"));
 
@@ -86,23 +82,7 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.maxHoldMs = newValue)
                     .build());
 
-            ConfigCategory experimental = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.experimental"));
 
-            experimental.addEntry(entryBuilder.startTextDescription(Text.translatable("config.pingstabilizer.experimental.warning"))
-                    .build());
-
-            experimental.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.enableDebugLog"), config.enableDebugLog)
-                    .setDefaultValue(false)
-                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.enableDebugLog"))
-                    .setSaveConsumer(newValue -> {
-                        config.enableDebugLog = newValue;
-                        if (newValue) {
-                            DebugLogger.enable();
-                        } else {
-                            DebugLogger.disable();
-                        }
-                    })
-                    .build());
 
             ConfigCategory hud = builder.getOrCreateCategory(Text.translatable("config.pingstabilizer.category.hud"));
 
