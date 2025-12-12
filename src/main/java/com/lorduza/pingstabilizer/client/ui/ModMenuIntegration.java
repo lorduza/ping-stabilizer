@@ -92,11 +92,7 @@ public class ModMenuIntegration implements ModMenuApi {
                     .setSaveConsumer(newValue -> config.hudEnabled = newValue)
                     .build());
 
-            hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.showPing"), config.showPing)
-                    .setDefaultValue(true)
-                    .setTooltip(Text.translatable("config.pingstabilizer.tooltip.showPing"))
-                    .setSaveConsumer(newValue -> config.showPing = newValue)
-                    .build());
+
 
             hud.addEntry(entryBuilder.startBooleanToggle(Text.translatable("config.pingstabilizer.option.showJitter"), config.showJitter)
                     .setDefaultValue(true)
