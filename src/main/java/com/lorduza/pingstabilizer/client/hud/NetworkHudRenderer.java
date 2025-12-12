@@ -72,9 +72,6 @@ public class NetworkHudRenderer implements HudRenderCallback {
     }
     
     private long getRealPing(MinecraftClient client) {
-        long internalPing = LatencySensor.getAverageRTT();
-        if (internalPing > 0) return internalPing;
-
         ClientPlayNetworkHandler handler = client.getNetworkHandler();
         if (handler == null || client.player == null) return 0;
         PlayerListEntry entry = handler.getPlayerListEntry(client.player.getUuid());
