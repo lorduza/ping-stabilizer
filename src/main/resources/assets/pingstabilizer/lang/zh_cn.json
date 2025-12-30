@@ -1,5 +1,5 @@
 {
-    "category.pingstabilizer": "Ping Stabilizer",
+    "key.category.pingstabilizer.keybinds": "Ping Stabilizer",
     "key.pingstabilizer.hud_position": "编辑HUD位置",
     "key.pingstabilizer.toggle_hud": "切换HUD",
     "config.pingstabilizer.title": "Ping Stabilizer 配置",

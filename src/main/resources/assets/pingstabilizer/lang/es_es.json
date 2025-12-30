@@ -1,5 +1,5 @@
 {
-    "category.pingstabilizer": "Ping Stabilizer",
+    "key.category.pingstabilizer.keybinds": "Ping Stabilizer",
     "key.pingstabilizer.hud_position": "Editar Posición del HUD",
     "key.pingstabilizer.toggle_hud": "Alternar HUD",
     "config.pingstabilizer.title": "Configuración de Ping Stabilizer",
