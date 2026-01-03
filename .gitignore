@@ -22,3 +22,8 @@ bin/
 
 # Fabric
 run/
+
+# Build outputs
+releases/
+logs/
+build-all.bat
