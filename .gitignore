@@ -1,24 +1,24 @@
-# Gradle files
+# Gradle
 .gradle/
 build/
 out/
 bin/
-.DS_Store
-aaa
-# IDEA
+
+# IDE
 .idea/
 *.iml
 *.iws
 *.ipr
+.vscode/
+.kiro/
 
 # Eclipse
 .classpath
 .project
 .settings/
 
-# VS Code
-.vscode/
+# OS
+.DS_Store
 
 # Fabric
 run/
-netbooster_debug.txt

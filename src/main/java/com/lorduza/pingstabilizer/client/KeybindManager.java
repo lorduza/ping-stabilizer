@@ -7,15 +7,12 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.text.Text;
-import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 
 public class KeybindManager {
 
-    private static final KeyBinding.Category CATEGORY = new KeyBinding.Category(
-        Identifier.of("pingstabilizer", "keybinds")
-    );
+    private static final String CATEGORY = "category.pingstabilizer.keybinds";
     
     private static KeyBinding hudPositionKey;
     private static KeyBinding toggleHudKey;
@@ -57,7 +54,3 @@ public class KeybindManager {
         }
     }
 }
-
-
-
-
